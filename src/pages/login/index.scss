@@ -1,0 +1,19 @@
+@import '../../base.scss';
+.login-content {
+  padding: 20px 10px;
+}
+.login-form-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 20px 0;
+  .item-input {
+    display: block;
+    padding-left: 20px;
+  }
+}
+.login-content-btn {
+  background-color: $primary-color;
+  border: none;
+  margin-top: 40px;
+}
