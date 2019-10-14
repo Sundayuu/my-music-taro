@@ -11,7 +11,7 @@ type PageState = {
   fetchBanner: () => void;
 };
 @connect(
-  ({ ...homeReducer }) => ({
+  ({ homeReducer }) => ({
     ...homeReducer
   }),
   dispatch => ({
@@ -54,6 +54,8 @@ class ListContainer extends Component<PageState, any> {
   componentDidHide() {}
 
   render() {
+    console.log('bannerList', this.props.bannerList);
+
     return (
       <View>
         <HeadLine title="推荐歌单" />
