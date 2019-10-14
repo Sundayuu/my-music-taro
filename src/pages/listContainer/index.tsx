@@ -1,13 +1,24 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { View, Swiper, SwiperItem, Image } from '@tarojs/components';
 import './index.scss';
 import { SongItem, HeadLine } from '@components';
+import { connect } from '@tarojs/redux';
+import { fetchBanner } from '@actions/homeAction';
 type PageState = {
   list: Array<any>;
+  bannerList: Array<any>;
+  fetchBanner: () => void;
 };
-
-class ListContainer extends Component<{}, PageState> {
+@connect(
+  ({ ...homeReducer }) => ({
+    ...homeReducer
+  }),
+  dispatch => ({
+    fetchBanner: () => dispatch(fetchBanner())
+  })
+)
+class ListContainer extends Component<PageState, any> {
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -27,7 +38,6 @@ class ListContainer extends Component<{}, PageState> {
   }
 
   componentWillMount() {
-    console.log(this.$router.params);
     Taro.setNavigationBarTitle({
       title: this.$router.params.headText
     });
@@ -35,6 +45,7 @@ class ListContainer extends Component<{}, PageState> {
   componentWillUnmount() {}
 
   componentDidShow() {
+    this.props.fetchBanner();
     this.setState({
       list: JSON.parse(this.$router.params.list)
     });
@@ -46,13 +57,37 @@ class ListContainer extends Component<{}, PageState> {
     return (
       <View>
         <HeadLine title="推荐歌单" />
-        <View className="recommend-list">
-          {this.state.list &&
-            this.state.list.map(item => {
-              return (
-                <SongItem key={item.id} imgUrl={item.picUrl} text={item.name} />
-              );
-            })}
+        <View className="container">
+          <Swiper
+            className="banner"
+            indicatorColor="#999"
+            indicatorActiveColor="#333"
+            vertical={false}
+            circular
+            indicatorDots
+            autoplay
+          >
+            {this.props.bannerList &&
+              this.props.bannerList.map(item => {
+                return (
+                  <SwiperItem key={item.targetId}>
+                    <Image src={item.pic} className="banner-img" />
+                  </SwiperItem>
+                );
+              })}
+          </Swiper>
+          <View className="recommend-list">
+            {this.state.list &&
+              this.state.list.map(item => {
+                return (
+                  <SongItem
+                    key={item.id}
+                    imgUrl={item.picUrl}
+                    text={item.name}
+                  />
+                );
+              })}
+          </View>
         </View>
       </View>
     );

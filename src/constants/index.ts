@@ -20,3 +20,5 @@ export const REFRESH_STATUS = {
 
 // 首页
 export const ACTION_SET_RECOMMEND_LIST = 'ACTION_SET_RECOMMEND_LIST';
+// banner
+export const ACTION_SET_BANNER_LIST = 'ACTION_SET_BANNER_LIST';

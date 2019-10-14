@@ -5,6 +5,7 @@ type Propstype = {
   imgUrl: string;
   text: string;
 };
+
 function SongItem({ imgUrl, text }: Propstype) {
   return (
     <View className="song-item">
