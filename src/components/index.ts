@@ -1,3 +1,4 @@
 import LogoContainer from './logoContainer';
-
-export { LogoContainer };
+import HeadLine from './HeadLine';
+import SongItem from './songItem';
+export { LogoContainer, HeadLine, SongItem };

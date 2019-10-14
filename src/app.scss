@@ -1,1 +1,6 @@
 @import '~taro-ui/dist/style/index.scss'; // 引入组件样式，仅需引入一次即可
+.container {
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}

@@ -22,7 +22,9 @@
     "typeRoots": ["node_modules/@types"],
     "paths": {
       "@utils": ["src/utils"],
-      "@components": ["src/components"]
+      "@components": ["src/components"],
+      "@constants": ["src/constants"],
+      "@actions/*": ["src/actions/*"]
     }
   },
   "exclude": ["node_modules", "dist"],

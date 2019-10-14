@@ -1,11 +1,11 @@
-import { ComponentClass } from 'react'
-import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import { ComponentClass } from 'react';
+import Taro, { Component, Config } from '@tarojs/taro';
+import { View } from '@tarojs/components';
+import { HeadLine, SongItem } from '@components';
+import { connect } from '@tarojs/redux';
+import { fetchRecommendList } from '@actions/homeAction';
 
-import { add, minus, asyncAdd } from '../../actions/counter'
-
-import './index.scss'
+import './index.scss';
 
 // #region 书写注意
 //
@@ -17,74 +17,88 @@ import './index.scss'
 //
 // #endregion
 
-type PageStateProps = {
-  counter: {
-    num: number
-  }
-}
-
 type PageDispatchProps = {
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
-}
+  fetchRecommendList: () => void;
+};
 
-type PageOwnProps = {}
+type PageOwnProps = {};
+type PageStateProps = {
+  recommendList: Array<any>;
+};
+type PageState = {};
 
-type PageState = {}
-
-type IProps = PageStateProps & PageDispatchProps & PageOwnProps
+type IProps = PageStateProps & PageDispatchProps & PageOwnProps;
 
 interface Index {
   props: IProps;
 }
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
+@connect(
+  ({ homeReducer }) => ({
+    ...homeReducer
+  }),
+  dispatch => ({
+    fetchRecommendList: () => dispatch(fetchRecommendList())
+  })
+)
 class Index extends Component {
-
-    /**
+  /**
    * 指定config的类型声明为: Taro.Config
    *
    * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
    * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
-    config: Config = {
-    navigationBarTitleText: '首页'
+  config: Config = {
+    navigationBarTitleText: '音乐广场'
+  };
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props, nextProps);
   }
 
-  componentWillReceiveProps (nextProps) {
-    console.log(this.props, nextProps)
+  componentWillUnmount() {}
+
+  componentDidShow() {
+    this.props.fetchRecommendList();
   }
 
-  componentWillUnmount () { }
+  componentDidHide() {}
 
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
+  render() {
     return (
-      <View className='index'>
-        <Button className='add_btn' onClick={this.props.add}>+</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{this.props.counter.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
+      <View>
+        <HeadLine
+          title="推荐歌单"
+          more="查看更多"
+          onClick={() => {
+            Taro.navigateTo({
+              url:
+                '/pages/listContainer/index?headText=推荐歌单&list=' +
+                JSON.stringify(this.props.recommendList),
+              success: function(res) {
+                res.eventChannel.emit('acceptDataFromOpenerPage', {
+                  data: 'test'
+                });
+              }
+            });
+          }}
+        />
+        <View className="container">
+          <View className="recommend-list">
+            {this.props.recommendList &&
+              this.props.recommendList.slice(0, 9).map(item => {
+                return (
+                  <SongItem
+                    key={item.id}
+                    imgUrl={item.picUrl}
+                    text={item.name}
+                  />
+                );
+              })}
+          </View>
+        </View>
       </View>
-    )
+    );
   }
 }
 
@@ -95,4 +109,4 @@ class Index extends Component {
 //
 // #endregion
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+export default Index as ComponentClass<PageOwnProps, PageState>;

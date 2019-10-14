@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'; // 引入taro核心库
-import { HTTP_STATUS } from '../constants/status'; // 请求状态码
-import { baseUrl } from '../config'; // 请求地址
-import { logError } from '../utils/error'; // 错误信息打印
+import { HTTP_STATUS } from '@constants'; // 请求状态码
+import { baseUrl } from '../../config'; // 请求地址
+import logError from './../error'; // 错误信息打印
 
 type OptionType = {
   url: string;

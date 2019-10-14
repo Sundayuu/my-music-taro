@@ -1,14 +1,18 @@
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Input } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { ComponentClass } from 'react';
 import { LogoContainer } from '@components';
-import { AtIcon, AtButton, AtToast } from 'taro-ui';
-import api from './../../services/api';
+import { HTTP_STATUS } from '@constants';
+import { AtIcon, AtButton, AtToast, AtInput } from 'taro-ui';
+import { api } from '@utils';
 import './index.scss';
 type PageState = {
   phone: string;
   password: string;
-  isLoading: boolean;
+  // isLoading: boolean;
+  showToast?: boolean;
+  toastType?: string;
+  msg: string;
 };
 // @connect()
 class Login extends Component<any, PageState> {
@@ -18,52 +22,93 @@ class Login extends Component<any, PageState> {
   state = {
     phone: '',
     password: '',
-    isLoading: false
+    // isLoading: false,
+    showToast: false,
+    // toast 类型
+    toastType: '',
+    msg: '网络错误'
   };
-  handleAccount = e => {
-    this.setState(() => ({
-      phone: e.detail.value
-    }));
+  handleAccount = value => {
+    this.setState({
+      phone: value
+    });
+    return value;
   };
-  handlePassword = e => {
+  handlePassword = v => {
     this.setState(() => ({
-      password: e.detail.value
+      password: v
     }));
+    return v;
   };
   handleSubmit = async () => {
     const { phone, password } = this.state;
-    if (phone && password) return;
-    const res = await api.get('/login/cellphone', {
+    if (!phone && !password)
+      return this.setState({
+        showToast: true,
+        msg: '手机号不能为空'
+      });
+    const { data } = await api.get('/login/cellphone', {
       phone,
       password
     });
-    console.log(this.state.phone, this.state.password);
+
+    if (data.code && data.code !== HTTP_STATUS.SUCCESS)
+      return this.setState({
+        showToast: true,
+        toastType: 'error',
+        msg: data.msg ? data.msg : '网络错误'
+      });
+    this.setState({
+      showToast: true,
+      toastType: 'loading',
+      msg: '登录中'
+    });
+    if (data.code && data.code === HTTP_STATUS.SUCCESS) {
+      this.setState({
+        showToast: true,
+        toastType: 'success',
+        msg: '登录成功'
+      });
+    }
+    Taro.navigateTo({
+      url: '/pages/index/index'
+    });
+  };
+  closeToast = () => {
+    this.setState({
+      showToast: false
+    });
   };
   render() {
-    const { phone, password, isLoading } = this.state;
+    const { phone, password, toastType, showToast, msg } = this.state;
     return (
       <View className="login_container">
         <LogoContainer />
         <View className="login-content">
           <View className="login-form-item">
             <AtIcon value="iphone" size="24" color="#ccc" />
-            <Input
+            <AtInput
+              name="phone"
+              border={false}
               type="number"
-              placeholder="请输入手机号"
+              placeholder="请输入手机号码"
               className="item-input"
+              maxLength={11}
+              clear
               value={phone.trim()}
-              onInput={e => this.handleAccount(e)}
+              onChange={this.handleAccount}
             />
           </View>
           <View className="login-form-item">
             <AtIcon value="lock" size="24" color="#ccc" />
-            <Input
-              type="text"
+            <AtInput
+              name="password"
+              border={false}
+              type="password"
               placeholder="请输入密码"
-              password
               className="item-input"
               value={password.trim()}
-              onInput={e => this.handlePassword(e)}
+              onChange={this.handlePassword}
             />
           </View>
           <AtButton
@@ -75,6 +120,12 @@ class Login extends Component<any, PageState> {
             {' '}
             登录
           </AtButton>
+          <AtToast
+            isOpened={showToast}
+            status={toastType as 'error' | 'loading' | 'success'}
+            text={msg}
+            onClose={this.closeToast}
+          />
         </View>
       </View>
     );

@@ -1,0 +1,12 @@
+.head-line {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .title {
+    font-weight: 700;
+  }
+  .more {
+    font-size: 30px;
+  }
+}

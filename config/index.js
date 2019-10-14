@@ -12,7 +12,9 @@ const config = {
   outputRoot: 'dist',
   alias: {
     '@components': path.resolve(__dirname, '..', 'src/components'),
-    '@utils': path.resolve(__dirname, '..', 'src/utils')
+    '@utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@constants': path.resolve(__dirname, '..', 'src/constants'),
+    '@actions': path.resolve(__dirname, '..', 'src/actions')
   },
   plugins: {
     babel: {

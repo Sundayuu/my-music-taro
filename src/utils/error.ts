@@ -1,4 +1,4 @@
-import { formatTime } from './common'
+import { formatTime } from './common';
 /**
  *
  * @param {string} name 错误名字
@@ -6,14 +6,15 @@ import { formatTime } from './common'
  * @param {string} info 错误信息，通常是 fail 返回的
  */
 // eslint-disable-next-line
-export const logError = (name: string, action: string, info?: string | object ) => {
+const logError = (name: string, action: string, info?: string | object) => {
   if (!info) {
-    info = 'empty'
+    info = 'empty';
   }
-  let time = formatTime(new Date())
-  console.error(time, name, action, info)
+  let time = formatTime(new Date());
+  console.error(time, name, action, info);
   if (typeof info === 'object') {
-    info = JSON.stringify(info)
+    info = JSON.stringify(info);
   }
-}
+};
 
+export default logError;

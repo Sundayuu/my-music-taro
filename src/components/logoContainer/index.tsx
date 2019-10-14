@@ -1,4 +1,4 @@
-import Taro, { Component, Config } from '@tarojs/taro';
+import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import { ComponentClass } from 'react';
 import './index.scss';
