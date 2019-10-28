@@ -4,11 +4,12 @@ import './index.scss';
 type Propstype = {
   imgUrl: string;
   text: string;
+  onClick: () => void;
 };
 
-function SongItem({ imgUrl, text }: Propstype) {
+function SongItem({ imgUrl, text, onClick }: Propstype) {
   return (
-    <View className="song-item">
+    <View className="song-item" onClick={onClick}>
       <Image className="img" src={imgUrl} />
       <Text className="desc">{text}</Text>
     </View>

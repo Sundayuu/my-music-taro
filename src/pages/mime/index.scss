@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px;
+
+  .draw_icon {
+    width: 60px;
+    height: 60px;
+  }
+  .use-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .use-name {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      color: #555;
+      .level-box {
+        border: 1px solid #555;
+        border-radius: 5px;
+        text-align: center;
+      }
+    }
+  }
+}

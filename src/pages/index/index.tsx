@@ -92,6 +92,11 @@ class Index extends Component {
                     key={item.id}
                     imgUrl={item.picUrl}
                     text={item.name}
+                    onClick={() =>
+                      Taro.navigateTo({
+                        url: `/pages/songDetail/index?id=${item.id}`
+                      })
+                    }
                   />
                 );
               })}

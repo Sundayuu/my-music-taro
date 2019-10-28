@@ -24,7 +24,8 @@
       "@utils": ["src/utils"],
       "@components": ["src/components"],
       "@constants": ["src/constants"],
-      "@actions/*": ["src/actions/*"]
+      "@actions/*": ["src/actions/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "exclude": ["node_modules", "dist"],

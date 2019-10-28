@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @components --silent --no-progress
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @assets/images/icon/draw.png --silent --no-progress
 
 PATH: 
-  C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;D:\code\my-music\node_modules\.bin;C:\Users\EDZ\AppData\Local\Temp\yarn--1570849069117-0.4149634797940558;D:\code\my-music\node_modules\.bin;C:\Users\EDZ\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_152\\bin;C:\Program Files\Java\jdk1.8.0_152\\jre\bin;C:\Users\EDZ\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\nodejs\;C:\WINDOWS\System32\OpenSSH\;C:\Users\EDZ\AppData\Local\Yarn\bin;C:\Python27;C:\Program Files\Java\jdk1.8.0_152\\bin;C:\Program Files\Java\jdk1.8.0_152\\jre\bin;C:\Users\EDZ\AppData\Roaming\npm;C:\Users\EDZ\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\EDZ\AppData\Local\BypassRuntm;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
+  C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;D:\code\my-music\node_modules\.bin;C:\Users\EDZ\AppData\Local\Temp\yarn--1571964849293-0.7649690272543628;D:\code\my-music\node_modules\.bin;C:\Users\EDZ\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Program Files\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\lib\node_modules\npm\bin\node-gyp-bin;C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_152\\bin;C:\Program Files\Java\jdk1.8.0_152\\jre\bin;C:\Users\EDZ\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\nodejs\;C:\WINDOWS\System32\OpenSSH\;C:\Users\EDZ\AppData\Local\Yarn\bin;C:\Python27;C:\Program Files\Java\jdk1.8.0_152\\bin;C:\Program Files\Java\jdk1.8.0_152\\jre\bin;C:\Users\EDZ\AppData\Roaming\npm;C:\Users\EDZ\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\EDZ\AppData\Local\BypassRuntm;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
 
 Yarn version: 
   1.15.2
@@ -14,15 +14,15 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/@components: Request "https://registry.npm.taobao.org/@components" returned a 405
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65176:18)
+  Error: https://registry.npm.taobao.org/@assets%2fimages/icon/draw.png: [not_found] document not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65167:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:129541:22)
       at Request.emit (events.js:203:13)
       at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130513:10)
       at Request.emit (events.js:203:13)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130435:12)
+      at Gunzip.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:130435:12)
       at Object.onceWrapper (events.js:291:20)
-      at IncomingMessage.emit (events.js:208:15)
+      at Gunzip.emit (events.js:208:15)
       at endReadableNT (_stream_readable.js:1154:12)
       at processTicksAndRejections (internal/process/task_queues.js:77:11)
 

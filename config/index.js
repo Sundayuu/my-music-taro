@@ -14,7 +14,8 @@ const config = {
     '@components': path.resolve(__dirname, '..', 'src/components'),
     '@utils': path.resolve(__dirname, '..', 'src/utils'),
     '@constants': path.resolve(__dirname, '..', 'src/constants'),
-    '@actions': path.resolve(__dirname, '..', 'src/actions')
+    '@actions': path.resolve(__dirname, '..', 'src/actions'),
+    '@assets': path.resolve(__dirname, '..', 'src/assets')
   },
   plugins: {
     babel: {

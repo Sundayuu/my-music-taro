@@ -78,6 +78,7 @@ class ListContainer extends Component<PageState, any> {
                 );
               })}
           </Swiper>
+          {/* 推荐歌单 */}
           <View className="recommend-list">
             {this.state.list &&
               this.state.list.map(item => {
@@ -86,10 +87,16 @@ class ListContainer extends Component<PageState, any> {
                     key={item.id}
                     imgUrl={item.picUrl}
                     text={item.name}
+                    onClick={() =>
+                      Taro.navigateTo({
+                        url: `/pages/songDetail/index?id=${item.id}`
+                      })
+                    }
                   />
                 );
               })}
           </View>
+          {/* 推荐电台 */}
         </View>
       </View>
     );

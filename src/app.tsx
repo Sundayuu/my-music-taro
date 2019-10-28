@@ -24,15 +24,34 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      'pages/mime/index',
       'pages/index/index',
       'pages/login/index',
-      'pages/listContainer/index'
+      'pages/listContainer/index',
+      'pages/songDetail/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#d43c33',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      selectedColor: '#cc1818',
+      list: [
+        {
+          selectedIconPath: 'assets/images/icon/selected_heart.png',
+          iconPath: 'assets/images/icon/heart.png',
+          pagePath: 'pages/index/index',
+          text: '心动'
+        },
+        {
+          selectedIconPath: 'assets/images/icon/selected_mine.png',
+          iconPath: 'assets/images/icon/mine.png',
+          pagePath: 'pages/mime/index',
+          text: '我的'
+        }
+      ]
     },
     // 允许后台播放音乐
     requiredBackgroundModes: ['audio']
