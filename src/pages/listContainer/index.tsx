@@ -5,10 +5,14 @@ import './index.scss';
 import { SongItem, HeadLine } from '@components';
 import { connect } from '@tarojs/redux';
 import { fetchBanner } from '@actions/homeAction';
-type PageState = {
-  list: Array<any>;
+type PropState = {
   bannerList: Array<any>;
   fetchBanner: () => void;
+  listContanerData: Array<any>;
+};
+type PageState = {
+  list: Array<any>;
+  title: string;
 };
 @connect(
   ({ homeReducer }) => ({
@@ -18,7 +22,7 @@ type PageState = {
     fetchBanner: () => dispatch(fetchBanner())
   })
 )
-class ListContainer extends Component<PageState, any> {
+class ListContainer extends Component<PropState, PageState> {
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -33,7 +37,8 @@ class ListContainer extends Component<PageState, any> {
   constructor(props) {
     super(props);
     this.state = {
-      list: []
+      list: [],
+      title: ''
     };
   }
 
@@ -47,18 +52,17 @@ class ListContainer extends Component<PageState, any> {
   componentDidShow() {
     this.props.fetchBanner();
     this.setState({
-      list: JSON.parse(this.$router.params.list)
+      list: this.props.listContanerData,
+      title: this.$router.params.headText
     });
   }
 
   componentDidHide() {}
 
   render() {
-    console.log('bannerList', this.props.bannerList);
-
     return (
       <View>
-        <HeadLine title="推荐歌单" />
+        <HeadLine title={this.state.title} />
         <View className="container">
           <Swiper
             className="banner"

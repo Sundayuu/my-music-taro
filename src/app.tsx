@@ -22,10 +22,14 @@ class App extends Component {
    * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
+  state = {
+    userId: '',
+    url: 'pages/mime/index'
+  };
   config: Config = {
     pages: [
-      'pages/mime/index',
       'pages/index/index',
+      'pages/mime/index',
       'pages/login/index',
       'pages/listContainer/index',
       'pages/songDetail/index'
@@ -59,7 +63,10 @@ class App extends Component {
 
   componentDidMount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    // 全局隐藏tabBar, 使用自己封装的tabbar
+    Taro.hideTabBar();
+  }
 
   componentDidHide() {}
 

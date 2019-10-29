@@ -4,17 +4,25 @@ import { ComponentClass } from 'react';
 import { LogoContainer } from '@components';
 import { HTTP_STATUS } from '@constants';
 import { AtIcon, AtButton, AtToast, AtInput } from 'taro-ui';
+import { connect } from '@tarojs/redux';
+import { saveLoginInfo } from '@actions/mineActions';
 import { api } from '@utils';
 import './index.scss';
 type PageState = {
   phone: string;
   password: string;
-  // isLoading: boolean;
   showToast?: boolean;
   toastType?: string;
   msg: string;
 };
-// @connect()
+@connect(
+  ({ mineReducer }) => ({
+    ...mineReducer
+  }),
+  dispatch => ({
+    saveLoginInfo: params => dispatch(saveLoginInfo(params))
+  })
+)
 class Login extends Component<any, PageState> {
   config: Config = {
     navigationBarTitleText: '登录'
@@ -47,6 +55,7 @@ class Login extends Component<any, PageState> {
         showToast: true,
         msg: '手机号不能为空'
       });
+
     const { data } = await api.get('/login/cellphone', {
       phone,
       password
@@ -64,13 +73,15 @@ class Login extends Component<any, PageState> {
       msg: '登录中'
     });
     if (data.code && data.code === HTTP_STATUS.SUCCESS) {
+      this.props.saveLoginInfo(data.profile);
       this.setState({
         showToast: true,
         toastType: 'success',
         msg: '登录成功'
       });
+      Taro.setStorageSync('userId', data.profile.userId);
     }
-    Taro.navigateTo({
+    Taro.switchTab({
       url: '/pages/index/index'
     });
   };

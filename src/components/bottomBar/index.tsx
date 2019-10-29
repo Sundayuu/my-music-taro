@@ -6,16 +6,41 @@ type PropsType = {
   currentTab: number;
 };
 const tabArr = [
-  { title: '心动', iconType: 'heart-2', pageUrl: '/pages/index/index' },
-  { title: '我的', iconType: 'user', pageUrl: '/pages/mime/index' }
+  {
+    title: '心动',
+    image: '/assets/images/icon/heart.png',
+    pageUrl: '/pages/index/index',
+    selectedImage: '/assets/images/icon/selected_heart.png',
+    isAuth: false
+  },
+  {
+    title: '我的',
+    image: '/assets/images/icon/mine.png',
+    pageUrl: '/pages/mime/index',
+    selectedImage: '/assets/images/icon/selected_mine.png',
+    isAuth: true
+  }
 ];
 function Bottom({ currentTab }: PropsType) {
   const handleClick = e => {
     if (e === currentTab) return;
-    console.log(e);
-    Taro.switchTab({
-      url: tabArr[e].pageUrl
-    });
+    let userId = Taro.getStorageSync('userId');
+    if (tabArr[e].isAuth) {
+      // 判断userId是否存在
+      if (userId) {
+        Taro.switchTab({
+          url: tabArr[e].pageUrl
+        });
+      } else {
+        Taro.navigateTo({
+          url: '/pages/login/index'
+        });
+      }
+    } else {
+      Taro.switchTab({
+        url: tabArr[e].pageUrl
+      });
+    }
   };
   return (
     <View>

@@ -1,7 +1,7 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View } from '@tarojs/components';
-import { HeadLine, SongItem } from '@components';
+import { HeadLine, SongItem, BottomBar } from '@components';
 import { connect } from '@tarojs/redux';
 import { fetchRecommendList } from '@actions/homeAction';
 
@@ -55,7 +55,7 @@ class Index extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps);
   }
-
+  componentWillMount() {}
   componentWillUnmount() {}
 
   componentDidShow() {
@@ -72,14 +72,7 @@ class Index extends Component {
           more="查看更多"
           onClick={() => {
             Taro.navigateTo({
-              url:
-                '/pages/listContainer/index?headText=推荐歌单&list=' +
-                JSON.stringify(this.props.recommendList),
-              success: function(res) {
-                res.eventChannel.emit('acceptDataFromOpenerPage', {
-                  data: 'test'
-                });
-              }
+              url: '/pages/listContainer/index?headText=推荐歌单'
             });
           }}
         />
@@ -102,6 +95,7 @@ class Index extends Component {
               })}
           </View>
         </View>
+        <BottomBar currentTab={0} />
       </View>
     );
   }

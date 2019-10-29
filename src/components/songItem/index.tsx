@@ -5,11 +5,12 @@ type Propstype = {
   imgUrl: string;
   text: string;
   onClick: () => void;
+  style?: any;
 };
 
-function SongItem({ imgUrl, text, onClick }: Propstype) {
+function SongItem({ imgUrl, text, onClick, style }: Propstype) {
   return (
-    <View className="song-item" onClick={onClick}>
+    <View className="song-item" style={style} onClick={onClick}>
       <Image className="img" src={imgUrl} />
       <Text className="desc">{text}</Text>
     </View>
