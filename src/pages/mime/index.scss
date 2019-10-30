@@ -40,6 +40,7 @@
 .draw-box {
   padding-top: 50px;
   margin-bottom: 20px;
+  font-size: 30px;
   .use-info-draw {
     padding: 0 20px 20px 20px;
     display: flex;
@@ -71,6 +72,25 @@
         width: 100px;
         color: #fff;
       }
+    }
+  }
+}
+.user_menu {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ebebeb;
+  font-size: 30px;
+  .user_menu_item {
+    flex: 1;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    text-align: center;
+    .num {
+      font-weight: 700;
     }
   }
 }

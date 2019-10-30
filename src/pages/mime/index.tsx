@@ -12,12 +12,14 @@ type PageState = {
   drawVisible: boolean;
   userInfo: any;
   logoutVisible: boolean;
+  menuArr: Array<any>;
 };
 type PropsState = {
   logout: () => void;
   logoutTips: string;
   logoutVisible: boolean;
 };
+
 @connect(
   ({ mineReducer }) => ({
     ...mineReducer
@@ -36,7 +38,8 @@ class Page extends Component<PropsState, PageState> {
     this.state = {
       drawVisible: false,
       userInfo: {},
-      logoutVisible: false
+      logoutVisible: false,
+      menuArr: []
     };
   }
 
@@ -47,9 +50,29 @@ class Page extends Component<PropsState, PageState> {
   componentWillUnmount() {}
 
   componentDidShow() {
-    const userInfo = JSON.parse(Taro.getStorageSync(cache.loginInfo) || '{}');
+    const userInfo = JSON.parse(
+      Taro.getStorageSync(cache.loginInfo) || '{}'
+    ) as any;
+    const { follows, followeds, playlistCount } = userInfo;
     this.setState({
-      userInfo
+      userInfo,
+      menuArr: [
+        {
+          id: 1,
+          num: followeds,
+          text: '动态'
+        },
+        {
+          id: 2,
+          num: follows,
+          text: '关注'
+        },
+        {
+          id: 3,
+          num: playlistCount,
+          text: '粉丝'
+        }
+      ]
     });
   }
 
@@ -68,11 +91,27 @@ class Page extends Component<PropsState, PageState> {
 
   render() {
     const { logoutTips } = this.props;
-    const { userInfo, logoutVisible } = this.state;
+    const { userInfo, logoutVisible, menuArr } = this.state;
     return (
-      <View className="container">
+      <View className="">
         {/* 用户头像 */}
         <UserInfo showDraw={this.showDraw} userInfo={userInfo} />
+        {/* menu */}
+        <View className="user_menu">
+          {menuArr &&
+            menuArr.map(item => {
+              return (
+                <View
+                  className="user_menu_item"
+                  onClick={() => {}}
+                  key={item.id}
+                >
+                  <Text className="num">{item.num ? item.num : 0}</Text>
+                  <Text>{item.text}</Text>
+                </View>
+              );
+            })}
+        </View>
         <AtDrawer
           show={this.state.drawVisible}
           mask
@@ -96,7 +135,13 @@ class Page extends Component<PropsState, PageState> {
                 </View>
               </View>
             </View>
-            <MineMenuItem icon={'sound'} text={'最近收听'} onClick={() => {}} />
+            <MineMenuItem
+              icon={'sound'}
+              text={'最近收听'}
+              onClick={() => {
+                this.showDraw();
+              }}
+            />
             <MineMenuItem
               icon={'check-circle'}
               text={'退出登录'}
