@@ -4,7 +4,6 @@ import {
   ACTION_SET_LOUGOUT
 } from '@constants';
 import { api } from '@utils';
-import Taro from '@tarojs/taro';
 import { util } from '@utils';
 // 存储用户信息
 export const saveLoginInfo = (params: any) => async dispatch => {

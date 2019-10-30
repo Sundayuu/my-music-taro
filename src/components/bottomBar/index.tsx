@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import { AtTabBar } from 'taro-ui';
+import { cache } from '@constants';
 import './index.scss';
 import { View } from '@tarojs/components';
 type PropsType = {
@@ -24,10 +25,10 @@ const tabArr = [
 function Bottom({ currentTab }: PropsType) {
   const handleClick = e => {
     if (e === currentTab) return;
-    let userId = Taro.getStorageSync('userId');
+    const userInfo = JSON.parse(Taro.getStorageSync(cache.loginInfo) || '{}');
     if (tabArr[e].isAuth) {
       // 判断userId是否存在
-      if (userId) {
+      if (userInfo.userId) {
         Taro.switchTab({
           url: tabArr[e].pageUrl
         });

@@ -2,7 +2,7 @@ import Taro, { Component, Config } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import { ComponentClass } from 'react';
 import { LogoContainer } from '@components';
-import { HTTP_STATUS } from '@constants';
+import { HTTP_STATUS, cache } from '@constants';
 import { AtIcon, AtButton, AtToast, AtInput } from 'taro-ui';
 import { connect } from '@tarojs/redux';
 import { saveLoginInfo } from '@actions/mineActions';
@@ -79,7 +79,7 @@ class Login extends Component<any, PageState> {
         toastType: 'success',
         msg: '登录成功'
       });
-      Taro.setStorageSync('userId', data.profile.userId);
+      Taro.setStorageSync(cache.loginInfo, JSON.stringify(data.profile));
     }
     Taro.switchTab({
       url: '/pages/index/index'

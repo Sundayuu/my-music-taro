@@ -6,12 +6,13 @@ import { MineMenuItem, BottomBar } from '@components';
 import { connect } from '@tarojs/redux';
 import { logout } from '@actions/mineActions';
 import './index.scss';
-
+import UserInfo from './userInfo';
+import { cache } from '@constants';
 type PageState = {
   drawVisible: boolean;
+  userInfo: any;
 };
 type PropsState = {
-  userInfo: any;
   logout: () => void;
   logoutTips: string;
   logoutVisible: boolean;
@@ -32,7 +33,8 @@ class Page extends Component<PropsState, PageState> {
   constructor(props) {
     super(props);
     this.state = {
-      drawVisible: false
+      drawVisible: false,
+      userInfo: {}
     };
   }
 
@@ -42,22 +44,31 @@ class Page extends Component<PropsState, PageState> {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    const userInfo = JSON.parse(Taro.getStorageSync(cache.loginInfo) || '{}');
+    this.setState({
+      userInfo
+    });
+  }
 
   componentDidHide() {}
+
   showDraw = () => {
     this.setState({
       drawVisible: !this.state.drawVisible
     });
   };
   render() {
+    console.log(this.state.userInfo);
+
     const { logoutVisible, logoutTips } = this.props;
     return (
       <View className="container">
         {/* 用户头像 */}
-        <View className="header">
-          {/* 用户信息 */}
-          <View className="use-info">
+        <UserInfo showDraw={this.showDraw} userInfo={this.state.userInfo} />
+        {/* <View className="header"> */}
+        {/* 用户信息 */}
+        {/* <View className="use-info">
             <Image
               className="avatar"
               src={
@@ -70,16 +81,17 @@ class Page extends Component<PropsState, PageState> {
                 <Text>LV.0</Text>
               </View>
             </View>
-          </View>
-          {/*  抽屉按钮 */}
-          <View onClick={() => this.showDraw()}>
+          </View> */}
+        {/*  抽屉按钮 */}
+        {/* <View onClick={() => this.showDraw()}>
             <Image
               className="draw_icon"
               src={require('@assets/images/icon/draw.png')}
             />
-          </View>
-        </View>
-        <View />
+          </View> */}
+        {/* </View> */}
+
+        {/*  */}
         <AtDrawer
           show={this.state.drawVisible}
           mask
@@ -115,7 +127,7 @@ class Page extends Component<PropsState, PageState> {
           isOpened={logoutVisible}
           status="success"
           text={logoutTips}
-          //  onClose={this.closeToast}
+          duration={1000}
         />
         <BottomBar currentTab={1} />
       </View>

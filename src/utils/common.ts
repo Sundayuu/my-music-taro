@@ -60,7 +60,7 @@ export const parse_lrc = (lrc_content: string) => {
 // 退出登录
 export const logout = () => {
   Taro.removeStorageSync('userId');
-  Taro.navigateTo({
+  Taro.reLaunch({
     url: '/pages/login/index'
   });
 };

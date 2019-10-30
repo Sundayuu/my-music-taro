@@ -1,10 +1,10 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View } from '@tarojs/components';
-import { HeadLine, SongItem, BottomBar } from '@components';
+import { HeadLine, BottomBar } from '@components';
 import { connect } from '@tarojs/redux';
-import { fetchRecommendList } from '@actions/homeAction';
-
+import { fetchRecommendList, fetchDj } from '@actions/homeAction';
+import ListContainer from './listContainer';
 import './index.scss';
 
 // #region 书写注意
@@ -19,11 +19,13 @@ import './index.scss';
 
 type PageDispatchProps = {
   fetchRecommendList: () => void;
+  fetchDj: () => void;
 };
 
 type PageOwnProps = {};
 type PageStateProps = {
   recommendList: Array<any>;
+  djList: Array<any>;
 };
 type PageState = {};
 
@@ -37,7 +39,8 @@ interface Index {
     ...homeReducer
   }),
   dispatch => ({
-    fetchRecommendList: () => dispatch(fetchRecommendList())
+    fetchRecommendList: () => dispatch(fetchRecommendList()),
+    fetchDj: () => dispatch(fetchDj())
   })
 )
 class Index extends Component {
@@ -60,13 +63,14 @@ class Index extends Component {
 
   componentDidShow() {
     this.props.fetchRecommendList();
+    this.props.fetchDj();
   }
 
   componentDidHide() {}
 
   render() {
     return (
-      <View>
+      <View className="bm-120">
         <HeadLine
           title="推荐歌单"
           more="查看更多"
@@ -77,24 +81,27 @@ class Index extends Component {
           }}
         />
         <View className="container">
-          <View className="recommend-list">
-            {this.props.recommendList &&
-              this.props.recommendList.slice(0, 9).map(item => {
-                return (
-                  <SongItem
-                    key={item.id}
-                    imgUrl={item.picUrl}
-                    text={item.name}
-                    onClick={() =>
-                      Taro.navigateTo({
-                        url: `/pages/songDetail/index?id=${item.id}`
-                      })
-                    }
-                  />
-                );
-              })}
-          </View>
+          <ListContainer
+            dataList={
+              this.props.recommendList && this.props.recommendList.slice(0, 9)
+            }
+            targetUrl="/pages/songDetail/index"
+          />
+          <HeadLine
+            title="推荐电台"
+            // more="查看更多"
+            onClick={() => {
+              Taro.navigateTo({
+                url: '/pages/listContainer/index?headText=推荐歌单'
+              });
+            }}
+          />
+          <ListContainer
+            dataList={this.props.djList && this.props.djList}
+            targetUrl="/pages/songDetail/index"
+          />
         </View>
+
         <BottomBar currentTab={0} />
       </View>
     );

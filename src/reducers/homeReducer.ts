@@ -1,14 +1,20 @@
-import { ACTION_SET_RECOMMEND_LIST, ACTION_SET_BANNER_LIST } from '@constants';
+import {
+  ACTION_SET_RECOMMEND_LIST,
+  ACTION_SET_BANNER_LIST,
+  ACTION_SET_DJ_LIST
+} from '@constants';
 
 type IProp = {
   recommendList: Array<any>;
   bannerList: Array<any>;
   listContanerData: Array<any>;
+  djList: Array<any>;
 };
 const INITIAL_STATE = {
   recommendList: [],
   bannerList: [],
-  listContanerData: []
+  listContanerData: [],
+  djList: []
 };
 
 export default function HomeReducer(state: IProp = INITIAL_STATE, action) {
@@ -23,6 +29,11 @@ export default function HomeReducer(state: IProp = INITIAL_STATE, action) {
       return {
         ...state,
         bannerList: action.payload
+      };
+    case ACTION_SET_DJ_LIST:
+      return {
+        ...state,
+        djList: action.payload
       };
     default:
       return state;

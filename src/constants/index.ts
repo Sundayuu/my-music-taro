@@ -11,6 +11,9 @@ export const HTTP_STATUS = {
   SERVICE_UNAVAILABLE: 503,
   GATEWAY_TIMEOUT: 504
 };
+export const cache = {
+  loginInfo: 'userInfo'
+};
 
 export const REFRESH_STATUS = {
   NORMAL: 0,
@@ -19,7 +22,10 @@ export const REFRESH_STATUS = {
 };
 
 // 首页
+// 推荐列表
 export const ACTION_SET_RECOMMEND_LIST = 'ACTION_SET_RECOMMEND_LIST';
+// 推荐电台
+export const ACTION_SET_DJ_LIST = 'ACTION_SET_DJ_LIST';
 // banner
 export const ACTION_SET_BANNER_LIST = 'ACTION_SET_BANNER_LIST';
 // 我的页面 缓存用户信息
