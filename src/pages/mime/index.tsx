@@ -1,6 +1,6 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View, Image, Text, Navigator } from '@tarojs/components';
+import { View, Image, Text } from '@tarojs/components';
 import { AtDrawer, AtToast } from 'taro-ui';
 import { MineMenuItem, BottomBar } from '@components';
 import { connect } from '@tarojs/redux';
@@ -11,6 +11,7 @@ import { cache } from '@constants';
 type PageState = {
   drawVisible: boolean;
   userInfo: any;
+  logoutVisible: boolean;
 };
 type PropsState = {
   logout: () => void;
@@ -34,7 +35,8 @@ class Page extends Component<PropsState, PageState> {
     super(props);
     this.state = {
       drawVisible: false,
-      userInfo: {}
+      userInfo: {},
+      logoutVisible: false
     };
   }
 
@@ -58,40 +60,19 @@ class Page extends Component<PropsState, PageState> {
       drawVisible: !this.state.drawVisible
     });
   };
-  render() {
-    console.log(this.state.userInfo);
+  showToast = () => {
+    this.setState({
+      logoutVisible: this.props.logoutVisible
+    });
+  };
 
-    const { logoutVisible, logoutTips } = this.props;
+  render() {
+    const { logoutTips } = this.props;
+    const { userInfo, logoutVisible } = this.state;
     return (
       <View className="container">
         {/* 用户头像 */}
-        <UserInfo showDraw={this.showDraw} userInfo={this.state.userInfo} />
-        {/* <View className="header"> */}
-        {/* 用户信息 */}
-        {/* <View className="use-info">
-            <Image
-              className="avatar"
-              src={
-                'http://p1.music.126.net/z1X7ldeHr9fswmTuMLdwLA==/109951164421173109.jpg'
-              }
-            />
-            <View className="use-name">
-              <Text>肉包子没有肉呀</Text>
-              <View className="level-box">
-                <Text>LV.0</Text>
-              </View>
-            </View>
-          </View> */}
-        {/*  抽屉按钮 */}
-        {/* <View onClick={() => this.showDraw()}>
-            <Image
-              className="draw_icon"
-              src={require('@assets/images/icon/draw.png')}
-            />
-          </View> */}
-        {/* </View> */}
-
-        {/*  */}
+        <UserInfo showDraw={this.showDraw} userInfo={userInfo} />
         <AtDrawer
           show={this.state.drawVisible}
           mask
@@ -102,14 +83,16 @@ class Page extends Component<PropsState, PageState> {
             <View className="use-info-draw">
               <Image
                 className="avatar"
-                src={
-                  'http://p1.music.126.net/z1X7ldeHr9fswmTuMLdwLA==/109951164421173109.jpg'
-                }
+                src={userInfo && userInfo.avatarUrl && userInfo.avatarUrl}
               />
               <View className="use-name">
-                <Text>肉包子没有肉呀</Text>
+                <Text>
+                  {userInfo && userInfo.nickname && userInfo.nickname}
+                </Text>
                 <View className="level-box">
-                  <Text>LV.0</Text>
+                  <Text>
+                    LV.{userInfo && userInfo.vipType && userInfo.vipType}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -119,6 +102,7 @@ class Page extends Component<PropsState, PageState> {
               text={'退出登录'}
               onClick={() => {
                 this.props.logout();
+                this.showDraw();
               }}
             />
           </View>
