@@ -28,7 +28,11 @@ export const ACTION_SET_RECOMMEND_LIST = 'ACTION_SET_RECOMMEND_LIST';
 export const ACTION_SET_DJ_LIST = 'ACTION_SET_DJ_LIST';
 // banner
 export const ACTION_SET_BANNER_LIST = 'ACTION_SET_BANNER_LIST';
-// 我的页面 缓存用户信息
+// 我的页面
+// 缓存用户信息
 export const ACTION_SET_USER_INFO = 'ACTION_SET_USER_INFO';
 // 退出登录
 export const ACTION_SET_LOUGOUT = 'ACTION_SET_LOUGOUT';
+
+// 歌单详情
+export const ACTION_SET_LIST_DETAIL = 'ACTION_SET_LIST_DETAIL';

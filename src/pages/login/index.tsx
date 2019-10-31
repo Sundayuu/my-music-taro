@@ -1,5 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { View, Image, Button } from '@tarojs/components';
 import { ComponentClass } from 'react';
 import { LogoContainer } from '@components';
 import { HTTP_STATUS, cache } from '@constants';
@@ -90,6 +90,9 @@ class Login extends Component<any, PageState> {
       showToast: false
     });
   };
+  threeLogin = e => {
+    console.log(e);
+  };
   render() {
     const { phone, password, toastType, showToast, msg } = this.state;
     return (
@@ -131,6 +134,17 @@ class Login extends Component<any, PageState> {
             {' '}
             登录
           </AtButton>
+          <Button
+            open-type="getUserInfo"
+            onGetUserInfo={e => this.threeLogin(e)}
+            className="three_login"
+          >
+            <Image
+              src={require('@assets/images/wechat.png')}
+              className="three_login_img"
+            />
+          </Button>
+
           <AtToast
             isOpened={showToast}
             status={toastType as 'error' | 'loading' | 'success'}

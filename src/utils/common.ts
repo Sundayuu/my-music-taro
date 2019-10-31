@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro';
+import { cache } from '@constants';
 export const formatNumber = n => {
   n = n.toString();
   return n[1] ? n : '0' + n;
@@ -59,7 +60,7 @@ export const parse_lrc = (lrc_content: string) => {
 };
 // 退出登录
 export const logout = () => {
-  Taro.removeStorageSync('userId');
+  Taro.removeStorageSync(cache.loginInfo);
   Taro.reLaunch({
     url: '/pages/login/index'
   });
