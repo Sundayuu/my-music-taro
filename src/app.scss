@@ -8,3 +8,18 @@
 .bm-120 {
   margin-bottom: 120px;
 }
+.circling {
+  animation: circling 20s infinite linear;
+  &.z-pause {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes circling {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

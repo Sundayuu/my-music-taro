@@ -41,11 +41,14 @@ class ListDetail extends Component<PropState, PageState> {
     let id = this.$router.params.id;
     this.props.fetchListDetail(id);
   }
-  componentDidHide() {}
+  handleItemNavigate = id => {
+    Taro.navigateTo({
+      url: `/pages/playSong/index?id=${id}`
+    });
+  };
 
   render() {
     const { listDetail, songList } = this.props;
-    console.log('数据自己', listDetail);
     return (
       <View className="detail_wrap">
         {/* 头部 */}
@@ -110,7 +113,14 @@ class ListDetail extends Component<PropState, PageState> {
               <CLoading />
             ) : (
               songList.slice(0, 20).map((item, index) => {
-                return <Item item={item} index={index} key={item.id} />;
+                return (
+                  <Item
+                    item={item}
+                    index={index}
+                    key={item.id}
+                    onClick={() => this.handleItemNavigate(item.id)}
+                  />
+                );
               })
             )}
           </ScrollView>

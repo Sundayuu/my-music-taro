@@ -3,11 +3,12 @@ import { View, Text } from '@tarojs/components';
 type IProps = {
   item: any;
   index: number;
+  onClick?: () => void;
 };
 import './index.scss';
-const Item = ({ item, index }: IProps) => {
+const Item = ({ item, index, onClick }: IProps) => {
   return (
-    <View className="song_item_wrap">
+    <View className="song_item_wrap" onClick={onClick}>
       <Text className="song_item_index">{index + 1}</Text>
       <View className="song_item_desc">
         <Text className="song">{item.name}</Text>

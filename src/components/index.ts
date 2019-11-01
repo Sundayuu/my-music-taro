@@ -4,4 +4,13 @@ import SongItem from './songItem';
 import BottomBar from './bottomBar';
 import MineMenuItem from './mineMenuItem';
 import CLoading from './CLoading';
-export { LogoContainer, HeadLine, SongItem, BottomBar, MineMenuItem, CLoading };
+import MProgress from './Progress';
+export {
+  LogoContainer,
+  HeadLine,
+  SongItem,
+  BottomBar,
+  MineMenuItem,
+  CLoading,
+  MProgress
+};
